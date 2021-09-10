@@ -1,28 +1,8 @@
 import { Guitar } from './../models/guitar.model';
-import { Action } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 
-export enum ActionTypes {
-  Add = '[Guitars] Add to cart',
-  Remove = '[Guitars] Remove to cart',
-  LoadItems = '[Guitars] Load items from server',
-  LoadSuccess = '[Guitars] Load success',
-}
-
-export class AddToCart implements Action {
-  readonly type: ActionTypes.Add;
-  constructor(public payload: Guitar) { }
-}
-
-export class RemoveFromCart implements Action {
-  readonly type: ActionTypes.Remove;
-  constructor(public payload: Guitar) { }
-}
-export class GetItems implements Action {
-  readonly type: ActionTypes.LoadItems;
-}
-export class LoadItems implements Action {
-  readonly type: ActionTypes.LoadSuccess;
-  constructor(public payload: Guitar[]) { }
-}
-
-export type Actions = AddToCart | RemoveFromCart | GetItems | LoadItems;
+export const AddToCart = createAction('[Guitars] Add to cart', props<{ payload: Guitar; }>());
+export const RemoveFromCart = createAction('[Guitars] Remove from cart', props<{ payload: Guitar; }>());
+export const LoadItems = createAction('[Guitars] Load items from server');
+export const LoadItemsSuccess = createAction('[Guitars] Load success', props<{ payload: Guitar[]; }>());
+export const LoadItemsFailure = createAction('[Guitars] Load failure', props<{ error: any; }>());
