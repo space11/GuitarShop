@@ -1,32 +1,24 @@
 import { Guitar } from './../models/guitar.model';
-import { Actions, ActionTypes, AddToCart } from './actions';
+import { createReducer, on, } from '@ngrx/store';
+import * as ShopActions from './actions';
 
-export const initialState = {
+interface InitialState {
+  items: Guitar[],
+  cart: Guitar[];
+}
+
+export const initialState: InitialState = {
   items: [],
   cart: []
 };
 
-export function ShopReducer(state = initialState, action: Actions) {
-  switch (action.type) {
-    case ActionTypes.LoadSuccess:
-      return {
-        ...state,
-        items: [...action.payload]
-      };
+const shopReducer = createReducer(
+  initialState,
+  on(ShopActions.LoadItemsSuccess, (state, action) => ({ ...state, items: action.payload })),
+  on(ShopActions.AddToCart, (state, action) => ({ ...state, cart: [...state.cart, action.payload] })),
+  on(ShopActions.RemoveFromCart, (state, action) => ({ ...state, cart: [...state.cart.filter((item: Guitar) => item.name !== action.payload.name)] })),
+);
 
-    case ActionTypes.Add:
-      return {
-        ...state,
-        cart: [...state.cart, action.payload]
-      };
-
-    case ActionTypes.Remove: // Remove item base on the guitar name. Can't have two guitars with the same name.
-      return {
-        ...state,
-        cart: [...state.cart.filter((item) => item.name !== action.payload.name)]
-      };
-
-    default:
-      return state;
-  }
+export function reducer(state, action) {
+  return shopReducer(state, action);
 }
