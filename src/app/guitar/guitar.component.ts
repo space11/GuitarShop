@@ -21,9 +21,9 @@ export class GuitarComponent implements OnInit {
 
   removeFromCart(guitar: Guitar) {
     this.store.dispatch(ShopActions.RemoveFromCart({ guitar }));
+    this.inCart = false;
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

@@ -9,8 +9,10 @@
       <li>
         <img src="/assets/images/case.png"
              alt="cart" />
-        <span class="badge"
-              *ngIf="cart.length > 0"> {{ cart.length }}</span>
+        <ng-container *ngIf="cart$ | async as cart">
+          <span class="badge"
+                *ngIf="cart.length > 0"> {{ cart.length }}</span>
+        </ng-container>
       </li>
     </ul>
   </div>
