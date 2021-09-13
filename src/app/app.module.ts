@@ -13,12 +13,16 @@ import { HeaderComponent } from './header/header.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer as ShopReducer } from './store/reducer';
 import { ShopEffect } from './store/effects';
+import { GuitarComponent } from './guitar/guitar.component';
+import { GuitarsListComponent } from './guitars-list/guitars-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    GuitarComponent,
+    GuitarsListComponent
   ],
   imports: [
     BrowserModule,

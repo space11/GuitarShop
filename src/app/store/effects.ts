@@ -5,7 +5,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 
 import { Guitar } from '../models/guitar.model';
 import { GuitarsService } from './../services/guitars.service';
-import * as ShopActions from './actions';
+import { ShopActions } from './actions';
+
 
 @Injectable()
 export class ShopEffect {
@@ -18,7 +19,7 @@ export class ShopEffect {
       ofType(ShopActions.LoadItems),
       mergeMap(() =>
         this.guitarService.getAll().pipe(
-          map((guitars: Guitar[]) => ShopActions.LoadItemsSuccess({ payload: guitars })),
+          map((guitars: Guitar[]) => ShopActions.LoadItemsSuccess({ guitars })),
           catchError(error => of(ShopActions.LoadItemsFailure({ error }))))
       ),
     );
